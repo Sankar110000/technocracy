@@ -204,22 +204,9 @@ export default function Navbar() {
 
           {/* Rightmost Controls & Actions */}
           <div className="flex items-center space-x-1">
-            <button
-              aria-label="Search"
-              className="p-2.5 rounded-full transition-all duration-300 cursor-pointer text-slate-600 hover:bg-blue-50 hover:text-blue-600 shadow-xs"
-            >
-              <Search className="w-4 h-4" />
-            </button>
-
-            <button
-              aria-label="User Profile"
-              className="p-2.5 rounded-full transition-all duration-300 cursor-pointer text-slate-600 hover:bg-blue-50 hover:text-blue-600"
-            >
-              <User className="w-4 h-4" />
-            </button>
 
             <div className="hidden xl:flex items-center space-x-3 pl-2">
-              <button className="px-5 py-2.5 rounded-xl text-sm font-semibold transition-all duration-300 cursor-pointer border border-blue-600 text-blue-600 hover:bg-blue-50">
+              <button onClick={() => router.push("/contact")} className="px-5 py-2.5 rounded-xl text-sm font-semibold transition-all duration-300 cursor-pointer border border-blue-600 text-blue-600 hover:bg-blue-50">
                 Contact Us
               </button>
             </div>
