@@ -9,10 +9,12 @@
     "lint": "eslint"
   },
   "dependencies": {
+    "algoliasearch": "^5.60.0",
     "lucide-react": "^1.58.0",
     "next": "16.4.2",
     "react": "19.3.0",
-    "react-dom": "19.3.0"
+    "react-dom": "19.3.0",
+    "react-instantsearch": "^7.52.0"
   },
   "devDependencies": {
     "@tailwindcss/turbopack": "^4",

@@ -12,6 +12,7 @@ import { industriesData } from "@/sample/industriesData";
 import { servicesList } from "@/sample/servicesData";
 import { productsList } from "@/sample/productsData";
 import { useRouter } from 'next/navigation';
+import SearchPage from './Search';
 
 interface NavSubItem {
   name: string;
@@ -64,10 +65,10 @@ export default function Navbar() {
   }));
 
   const aboutUsLinks: NavSubItem[] = [
-    { name: "Overview", tagline: "Who we are at a glance", route: "/about/overview", icon: <Compass className="w-5 h-5" /> },
-    { name: "Our Purpose", tagline: "Our vision & mission", route: "/about/purpose", icon: <Flag className="w-5 h-5" /> },
-    { name: "Leadership Team", tagline: "The people steering us", route: "/about/leadership", icon: <Users className="w-5 h-5" /> },
-    { name: "Our Journey", tagline: "Milestones along the way", route: "/about/journey", icon: <Route className="w-5 h-5" /> },
+    { name: "Overview", tagline: "Who we are at a glance", route: "/about#overview", icon: <Compass className="w-5 h-5" /> },
+    { name: "Our Purpose", tagline: "Our vision & mission", route: "/about#purpose", icon: <Flag className="w-5 h-5" /> },
+    { name: "Leadership Team", tagline: "The people steering us", route: "/about#leadership", icon: <Users className="w-5 h-5" /> },
+    { name: "Our Journey", tagline: "Milestones along the way", route: "/about#journey", icon: <Route className="w-5 h-5" /> },
   ];
 
   const resourceLinks: NavSubItem[] = [
@@ -82,7 +83,7 @@ export default function Navbar() {
   const navLinks: NavLinkItem[] = [
     {
       name: "About us",
-      route: "/about-us",
+      route: "/about",
       items: aboutUsLinks,
       widthClass: "max-w-4xl",
       gridClass: "grid-cols-1 md:grid-cols-2"
@@ -102,7 +103,7 @@ export default function Navbar() {
     },
     {
       name: "Resources",
-      route: "/resources",
+      route: "/resources/insights",
       items: resourceLinks,
       widthClass: "max-w-5xl",
       gridClass: "grid-cols-1 md:grid-cols-2 lg:grid-cols-3"
