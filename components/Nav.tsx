@@ -5,7 +5,8 @@ import {
   Search, User, ChevronDown, Menu, X, ArrowRight, ArrowUpRight,
   Compass, Flag, Users, Route, BookOpen,
   Building2, CalendarCheck, Cpu, Briefcase, Share2, Boxes,
-  Code2
+  Code2,
+  MessageCircleMoreIcon
 } from 'lucide-react';
 import Link from 'next/link';
 import { industriesData } from "@/sample/industriesData";
@@ -13,6 +14,7 @@ import { servicesList } from "@/sample/servicesData";
 import { productsList } from "@/sample/productsData";
 import { useRouter } from 'next/navigation';
 import SearchPage from './Search';
+import { FloatingChatWidget } from './ui/ChatWidget';
 
 interface NavSubItem {
   name: string;
@@ -152,7 +154,7 @@ export default function Navbar() {
   };
 
   return (
-    <div className=" transition-colors duration-300 text-slate-900">
+    <div className=" transition-colors duration-300 text-slate-900 relative">
 
       {/* Sticky Navbar Wrapper */}
       <header
@@ -429,6 +431,7 @@ export default function Navbar() {
           </div>
         )}
       </header>
+      <FloatingChatWidget/>
       {/* Mobile Navigation Drawer */}
       {mobileMenuOpen && (
         <div className="md:hidden fixed inset-x-0 top-[73px] p-6 border-b shadow-2xl backdrop-blur-xl z-40 max-h-[80vh] overflow-y-auto bg-white/95 border-slate-200 text-slate-900">
