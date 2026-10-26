@@ -46,7 +46,7 @@ export function FloatingChatWidget() {
         setIsTyping(true);
 
         const { data } = await axios.post("/api/chat", {
-            messages: [...messages.map(msg => ({ role: msg.role, content: msg.content })), {role: "user", content: userMessage.content}]
+            messages: [...messages.map(msg => ({ role: msg.role, content: msg.content })), { role: "user", content: userMessage.content }]
         })
 
         if (!data.success) {
@@ -60,7 +60,7 @@ export function FloatingChatWidget() {
             return;
         }
 
-        const aiMessage: Message = {id: new Date().toString(), role: "assistant", content: data?.response.text}
+        const aiMessage: Message = { id: new Date().toString(), role: "assistant", content: data?.response.text }
         setMessages(prev => [...prev, aiMessage])
         setIsTyping(false)
     };
@@ -70,8 +70,8 @@ export function FloatingChatWidget() {
             {/* Floating Chat Modal Container */}
             <div
                 className={`w-[360px] sm:w-[400px] h-[520px] bg-slate-950 border border-slate-800 rounded-2xl shadow-2xl overflow-hidden flex flex-col transition-all duration-300 ease-out origin-bottom-right mb-4 ${isOpen
-                        ? 'opacity-100 scale-100 translate-y-0 pointer-events-auto'
-                        : 'opacity-0 scale-95 translate-y-4 pointer-events-none absolute'
+                    ? 'opacity-100 scale-100 translate-y-0 pointer-events-auto'
+                    : 'opacity-0 scale-95 translate-y-4 pointer-events-none absolute'
                     }`}
             >
                 {/* Chat Header */}
@@ -111,8 +111,8 @@ export function FloatingChatWidget() {
                             {/* Avatar */}
                             <div
                                 className={`w-7 h-7 rounded-lg flex items-center justify-center shrink-0 text-xs ${msg.role === 'user'
-                                        ? 'bg-blue-600 text-white'
-                                        : 'bg-slate-800 text-slate-300 border border-slate-700'
+                                    ? 'bg-blue-600 text-white'
+                                    : 'bg-slate-800 text-slate-300 border border-slate-700'
                                     }`}
                             >
                                 {msg.role === 'user' ? <User className="w-4 h-4" /> : <Bot className="w-4 h-4" />}
@@ -121,8 +121,8 @@ export function FloatingChatWidget() {
                             {/* Message Content Bubble */}
                             <div
                                 className={`max-w-[78%] rounded-2xl px-3.5 py-2.5 text-sm leading-relaxed ${msg.role === 'user'
-                                        ? 'bg-blue-600 text-white rounded-tr-xs'
-                                        : 'bg-slate-900 border border-slate-800 text-slate-200 rounded-tl-xs'
+                                    ? 'bg-blue-600 text-white rounded-tr-xs'
+                                    : 'bg-slate-900 border border-slate-800 text-slate-200 rounded-tl-xs'
                                     }`}
                             >
                                 <p>{msg.content}</p>
@@ -132,13 +132,23 @@ export function FloatingChatWidget() {
 
                     {/* Typing Indicator */}
                     {isTyping && (
-                        <div className="flex items-center gap-2 text-slate-400 text-xs bg-slate-900 border border-slate-800/80 w-fit px-3 py-2 rounded-2xl rounded-tl-xs">
-                            <Bot className="w-3.5 h-3.5 text-blue-400 animate-pulse" />
-                            <span className="flex gap-1 items-center">
-                                <span className="w-1.5 h-1.5 bg-slate-400 rounded-full animate-bounce [animation-delay:-0.3s]" />
-                                <span className="w-1.5 h-1.5 bg-slate-400 rounded-full animate-bounce [animation-delay:-0.15s]" />
-                                <span className="w-1.5 h-1.5 bg-slate-400 rounded-full animate-bounce" />
-                            </span>
+                        <div
+                            className='flex items-start gap-2.5 flex-row'
+                        >
+                            <div
+                                className={'w-7 h-7 rounded-lg flex items-center justify-center shrink-0 text-xs bg-slate-800 text-slate-300 border border-slate-700'}
+                            >
+                                <Bot className="w-4 h-4" />
+                            </div>
+                            <div
+                                className='max-w-[78%] rounded-2xl px-3.5 py-2.5 text-sm leading-relaxed bg-slate-900 border border-slate-800 text-slate-200 rounded-tl-xs'
+                            >
+                                <span className="flex gap-1 items-center">
+                                    <span className="w-1.5 h-1.5 bg-slate-400 rounded-full animate-bounce [animation-delay:-0.3s]" />
+                                    <span className="w-1.5 h-1.5 bg-slate-400 rounded-full animate-bounce [animation-delay:-0.15s]" />
+                                    <span className="w-1.5 h-1.5 bg-slate-400 rounded-full animate-bounce" />
+                                </span>
+                            </div>
                         </div>
                     )}
 

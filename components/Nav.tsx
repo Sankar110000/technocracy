@@ -6,7 +6,8 @@ import {
   Compass, Flag, Users, Route, BookOpen,
   Building2, CalendarCheck, Cpu, Briefcase, Share2, Boxes,
   Code2,
-  MessageCircleMoreIcon
+  MessageCircleMoreIcon,
+  User2
 } from 'lucide-react';
 import Link from 'next/link';
 import { industriesData } from "@/sample/industriesData";
@@ -38,6 +39,8 @@ export default function Navbar() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [activeDropdown, setActiveDropdown] = useState<number | null>(null);
   const [capabilitiesTab, setCapabilitiesTab] = useState<'services' | 'products'>('services');
+  const [isLoggedIn, setIsLoggedIn] = useState(false)
+  const [userEmail, setUserEmail] = useState<string | null>(null)
 
   const router = useRouter()
 
@@ -134,6 +137,16 @@ export default function Navbar() {
     setCapabilitiesTab(tab);
   };
 
+  const handelProfileClick = () => {
+    const email = localStorage.getItem("user")
+    if (email) {
+      setUserEmail(email)
+      setIsLoggedIn(!isLoggedIn)
+    } else {
+      router.push("/auth")
+    }
+  }
+
   useEffect(() => {
     return () => {
       if (timeoutRef.current) clearTimeout(timeoutRef.current);
@@ -166,8 +179,7 @@ export default function Navbar() {
           {/* Leftmost: Logo */}
           <div className="flex items-center space-x-2">
             <Link href="/" className="flex items-center font-extrabold text-xl tracking-tight cursor-pointer">
-              <span className="text-slate-900">Technocracy</span>
-              <span className="text-xs text-blue-600 mt-2">.group</span>
+              <span className="text-slate-900 uppercase">Technocracy</span>
             </Link>
           </div>
 
@@ -206,6 +218,30 @@ export default function Navbar() {
           <div className="flex items-center space-x-1">
 
             <div className="hidden xl:flex items-center space-x-3 pl-2">
+              <div
+                onClick={handelProfileClick}
+                className="relative flex h-9 w-9 cursor-pointer items-center justify-center
+    rounded-full border border-slate-200 bg-white text-slate-600
+    shadow-sm transition-all duration-200 hover:border-slate-300
+    hover:bg-slate-50 hover:text-slate-900"
+              >
+                {isLoggedIn && (
+                  <div
+                    className="absolute right-0 top-11 z-50 min-w-56 rounded-xl
+        border border-slate-200 bg-white p-4 text-sm text-slate-700
+        shadow-lg shadow-slate-200/50"
+                  >
+                    <p className="mb-1 text-xs font-medium uppercase tracking-wider text-slate-400">
+                      Signed in as
+                    </p>
+                    <p className="break-all font-medium text-slate-800">
+                      {userEmail}
+                    </p>
+                  </div>
+                )}
+
+                <User size={18} strokeWidth={1.8} />
+              </div>
               <button onClick={() => router.push("/contact")} className="px-5 py-2.5 rounded-xl text-sm font-semibold transition-all duration-300 cursor-pointer border border-blue-600 text-blue-600 hover:bg-blue-50">
                 Contact Us
               </button>
@@ -418,7 +454,7 @@ export default function Navbar() {
           </div>
         )}
       </header>
-      <FloatingChatWidget/>
+      <FloatingChatWidget />
       {/* Mobile Navigation Drawer */}
       {mobileMenuOpen && (
         <div className="md:hidden fixed inset-x-0 top-[73px] p-6 border-b shadow-2xl backdrop-blur-xl z-40 max-h-[80vh] overflow-y-auto bg-white/95 border-slate-200 text-slate-900">
