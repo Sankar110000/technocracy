@@ -84,7 +84,7 @@ export default function AuthPage() {
   const toggleMode = () => {
     setIsSignUp(!isSignUp);
     setMessage(null);
-    setPassword('');i
+    setPassword('');
     setConfirmPassword('');
   };
 
