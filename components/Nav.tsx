@@ -7,7 +7,8 @@ import {
   Building2, CalendarCheck, Cpu, Briefcase, Share2, Boxes,
   Code2,
   MessageCircleMoreIcon,
-  User2
+  User2,
+  LogOut
 } from 'lucide-react';
 import Link from 'next/link';
 import { industriesData } from "@/sample/industriesData";
@@ -147,6 +148,10 @@ export default function Navbar() {
     }
   }
 
+  const handleLogout = () => {
+    localStorage.removeItem("user")
+    setUserEmail(null)
+  }
   useEffect(() => {
     return () => {
       if (timeoutRef.current) clearTimeout(timeoutRef.current);
@@ -226,19 +231,30 @@ export default function Navbar() {
     hover:bg-slate-50 hover:text-slate-900"
               >
                 {isLoggedIn && (
-                  <div
-                    className="absolute right-0 top-11 z-50 min-w-56 rounded-xl
-        border border-slate-200 bg-white p-4 text-sm text-slate-700
-        shadow-lg shadow-slate-200/50"
-                  >
-                    <p className="mb-1 text-xs font-medium uppercase tracking-wider text-slate-400">
-                      Signed in as
-                    </p>
-                    <p className="break-all font-medium text-slate-800">
-                      {userEmail}
-                    </p>
-                  </div>
-                )}
+  <div
+    className="absolute right-0 top-11 z-50 min-w-56 rounded-xl
+    border border-slate-200 bg-white p-4 text-sm text-slate-700
+    shadow-lg shadow-slate-200/50"
+  >
+    <p className="mb-1 text-xs font-medium uppercase tracking-wider text-slate-400">
+      Signed in as
+    </p>
+    <p className="break-all font-medium text-slate-800 pb-3">
+      {userEmail}
+    </p>
+
+    {/* Improved Logout Button */}
+    <div className="pt-2 border-t border-slate-100">
+      <button
+        onClick={handleLogout}
+        className="w-full flex items-center gap-2.5 px-3 py-2 rounded-lg font-medium text-red-600 hover:bg-red-50 transition-colors duration-200 text-left cursor-pointer"
+      >
+        <LogOut size={18} />
+        <span>Log out</span>
+      </button>
+    </div>
+  </div>
+)}
 
                 <User size={18} strokeWidth={1.8} />
               </div>
