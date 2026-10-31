@@ -44,8 +44,8 @@ export default function AuthPage() {
       }
     }
 
-    const endpoint = isSignUp 
-      ? 'api/signup' 
+    const endpoint = isSignUp
+      ? 'api/signup'
       : 'api/login';
 
     try {
@@ -55,23 +55,29 @@ export default function AuthPage() {
       });
 
       if (response.ok) {
-        setMessage({ 
-          type: 'success', 
-          text: isSignUp ? 'Account created successfully!' : 'Signed in successfully!' 
+        setMessage({
+          type: 'success',
+          text: isSignUp ? 'Account created successfully, Sign in!' : 'Signed in successfully!'
         });
-        if(isSignUp){ 
-          router.push("/auth")  
-        }else {
+        if (isSignUp) {
+          router.push("/auth")
+          setIsSignUp(false)
+          setEmail("")
+          setPassword("")
+        } else {
           const { email } = await response.json();
           console.log(email);
           localStorage.setItem("user", email)
           router.push("/")
+          setMessage(null)
+          setEmail("")
+          setPassword("")
         }
       } else {
         const data = await response.json().catch(() => ({}));
-        setMessage({ 
-          type: 'error', 
-          text: data.message || `Failed to ${isSignUp ? 'sign up' : 'sign in'}. Please try again.` 
+        setMessage({
+          type: 'error',
+          text: data.message || `Failed to ${isSignUp ? 'sign up' : 'sign in'}. Please try again.`
         });
       }
     } catch (err) {
@@ -90,21 +96,21 @@ export default function AuthPage() {
 
   return (
     <div className="min-h-screen bg-[#0b0e14] text-slate-100 flex items-center justify-center font-sans relative overflow-hidden selection:bg-sky-500 selection:text-white">
-      
+
       {/* Dark Subtle Ambient Glow in background */}
       <div className="absolute top-1/4 left-10 w-[500px] h-[500px] bg-sky-900/20 rounded-full blur-[140px] pointer-events-none" />
       <div className="absolute bottom-10 left-1/3 w-[400px] h-[400px] bg-slate-800/20 rounded-full blur-[120px] pointer-events-none" />
 
       {/* Main Container */}
       <div className="w-full max-w-6xl mx-auto px-6 py-12 grid grid-cols-1 lg:grid-cols-12 gap-12 items-center relative z-10">
-        
+
         {/* Left Branding Column */}
         <div className="lg:col-span-7 space-y-8 pr-0 lg:pr-8">
           <div>
             <span className="text-xs font-semibold uppercase tracking-widest text-sky-400">
               Technocracy Group
             </span>
-            
+
             <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-white mt-4 leading-[1.2]">
               Governed AI for institutions that{' '}
               <span className="text-sky-400">can't afford to guess.</span>
@@ -133,7 +139,7 @@ export default function AuthPage() {
         {/* Right Auth Card Column */}
         <div className="lg:col-span-5 flex justify-center lg:justify-end">
           <div className="w-full max-w-md bg-[#111622] border border-slate-800/90 rounded-2xl p-8 sm:p-10 shadow-2xl shadow-black/80">
-            
+
             {/* Sub-Header / Category */}
             <span className="text-[11px] font-bold tracking-wider text-sky-400 uppercase">
               Account
@@ -150,11 +156,10 @@ export default function AuthPage() {
             {/* Error / Success Toast Message */}
             {message && (
               <div
-                className={`p-3 rounded-xl text-xs mb-5 border ${
-                  message.type === 'error'
+                className={`p-3 rounded-xl text-xs mb-5 border ${message.type === 'error'
                     ? 'bg-rose-950/40 border-rose-800/60 text-rose-300'
                     : 'bg-emerald-950/40 border-emerald-800/60 text-emerald-300'
-                }`}
+                  }`}
               >
                 {message.text}
               </div>
@@ -162,7 +167,7 @@ export default function AuthPage() {
 
             {/* Form */}
             <form onSubmit={handleSubmit} className="space-y-5">
-              
+
               {/* Email Field */}
               <div className="space-y-1.5">
                 <label className="block text-xs font-medium text-slate-300">
@@ -255,8 +260,8 @@ export default function AuthPage() {
                 disabled={loading}
                 className="w-full py-3 px-4 rounded-xl bg-sky-600 hover:bg-sky-500 active:bg-sky-700 font-medium text-sm text-white transition-all shadow-lg shadow-sky-600/20 disabled:opacity-50 disabled:cursor-not-allowed mt-2"
               >
-                {loading 
-                  ? 'Processing...' 
+                {loading
+                  ? 'Processing...'
                   : isSignUp ? 'Create account' : 'Sign In'}
               </button>
             </form>

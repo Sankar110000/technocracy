@@ -151,6 +151,7 @@ export default function Navbar() {
   const handleLogout = () => {
     localStorage.removeItem("user")
     setUserEmail(null)
+    setIsLoggedIn(false)
   }
   useEffect(() => {
     return () => {
